@@ -1,0 +1,25 @@
+# Backend
+backend/WeightTrackerAPI/bin/
+backend/WeightTrackerAPI/obj/
+backend/WeightTrackerAPI/weighttracker.db
+backend/WeightTrackerAPI/weighttracker.db-shm
+backend/WeightTrackerAPI/weighttracker.db-wal
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
