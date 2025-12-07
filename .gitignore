@@ -1,9 +1,9 @@
 # Backend
-backend/WeightTrackerAPI/bin/
-backend/WeightTrackerAPI/obj/
-backend/WeightTrackerAPI/weighttracker.db
-backend/WeightTrackerAPI/weighttracker.db-shm
-backend/WeightTrackerAPI/weighttracker.db-wal
+wt_backend_api/bin/
+wt_backend_api/obj/
+wt_backend_api/weighttracker.db
+wt_backend_api/weighttracker.db-shm
+wt_backend_api/weighttracker.db-wal
 
 # Frontend
 frontend/node_modules/
@@ -23,3 +23,5 @@ Thumbs.db
 
 # Logs
 *.log
+
+node_modules/

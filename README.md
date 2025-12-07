@@ -17,6 +17,7 @@ A modern weight tracking web application built with .NET 10 and Angular 21.
 ## Technology Stack
 
 ### Backend
+
 - **.NET 10** - Latest .NET framework
 - **ASP.NET Core** - Minimal API pattern
 - **Entity Framework Core 10** - ORM
@@ -24,6 +25,7 @@ A modern weight tracking web application built with .NET 10 and Angular 21.
 - **Kestrel** - Web server
 
 ### Frontend
+
 - **Angular 21** - Latest Angular framework
 - **TypeScript** - Type-safe development
 - **Chart.js** - Data visualization
@@ -32,7 +34,7 @@ A modern weight tracking web application built with .NET 10 and Angular 21.
 
 ## Project Structure
 
-```
+```md
 WeightTracker25/
 ├── backend/
 │   └── WeightTrackerAPI/
@@ -92,8 +94,9 @@ dotnet run --urls "http://localhost:5000"
 ```
 
 The backend will:
+
 - Create the SQLite database automatically
-- Run on http://localhost:5000
+- Run on <http://localhost:5000>
 - Provide REST API endpoints at /api/weights
 
 ### 3. Start the Frontend
@@ -106,13 +109,15 @@ ng serve
 ```
 
 The frontend will:
-- Run on http://localhost:4200
+
+- Run on <http://localhost:4200>
 - Connect to the backend API
 - Auto-reload on file changes
 
 ### 4. Access the Application
 
 Open your browser and navigate to:
+
 ```
 http://localhost:4200
 ```
@@ -138,6 +143,7 @@ All endpoints are prefixed with `/api/weights`
 The backend uses .NET 10's minimal API pattern for clean, concise endpoints. CORS is configured to allow requests from the Angular development server.
 
 To add new features:
+
 1. Update the `WeightEntry` model in `Models/WeightEntry.cs`
 2. Add/modify endpoints in `Program.cs`
 3. Database migrations are handled automatically with `EnsureCreated()`
@@ -147,6 +153,7 @@ To add new features:
 The frontend uses Angular standalone components for a modern, modular architecture.
 
 Key files:
+
 - `weight.service.ts` - API communication
 - `weight-form.ts` - Add/Edit form component
 - `weight-list.ts` - Display and manage entries
@@ -155,12 +162,14 @@ Key files:
 ### Building for Production
 
 #### Backend
+
 ```bash
 cd backend/WeightTrackerAPI
 dotnet publish -c Release -o ./publish
 ```
 
 #### Frontend
+
 ```bash
 cd frontend
 ng build --configuration production
@@ -171,6 +180,7 @@ The production build will be in `frontend/dist/`
 ## Deployment
 
 ### Requirements
+
 - Intel N100 or equivalent (x86_64)
 - 4 GB RAM minimum
 - Linux (Fedora 43+)
@@ -199,6 +209,7 @@ The production build will be in `frontend/dist/`
 The application uses SQLite with a single table:
 
 **WeightEntries**
+
 - `Id` (INTEGER, Primary Key)
 - `Date` (TEXT, Unique Index)
 - `Weight` (REAL)
@@ -209,6 +220,7 @@ The database file (`weighttracker.db`) is created automatically in the backend d
 ## Features in Detail
 
 ### Weight Entry Form
+
 - Date picker (defaults to today)
 - Numeric input for weight (kg, floating point)
 - Optional notes field
@@ -216,6 +228,7 @@ The database file (`weighttracker.db`) is created automatically in the backend d
 - Edit mode: Pre-fills form with existing data
 
 ### Weight Chart
+
 - Responsive design adapting to screen size
 - Smooth line chart with filled area
 - Interactive tooltips
@@ -223,6 +236,7 @@ The database file (`weighttracker.db`) is created automatically in the backend d
 - Shows trend over time
 
 ### Weight List
+
 - Chronological display (newest first)
 - Edit and delete buttons for each entry
 - Formatted dates
