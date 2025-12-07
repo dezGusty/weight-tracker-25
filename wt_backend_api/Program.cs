@@ -30,6 +30,9 @@ using (var scope = app.Services.CreateScope())
     db.Database.EnsureCreated();
 }
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 // Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
@@ -154,5 +157,7 @@ app.MapDelete("/api/weights/{id}", async (int id, WeightTrackerContext db) =>
 })
 .WithName("DeleteWeight")
 .RequireCors("AllowAngularApp");
+
+app.MapFallbackToFile("index.html");
 
 app.Run();

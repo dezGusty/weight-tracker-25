@@ -26,3 +26,5 @@ Thumbs.db
 
 node_modules/
 wt_frontend/.angular/
+wt_backend_api/wwwroot/
+wt_frontend/dist/

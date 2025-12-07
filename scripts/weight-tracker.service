@@ -1,0 +1,22 @@
+[Unit]
+Description=Weight Tracker Web App
+After=network.target
+
+[Service]
+WorkingDirectory=/opt/weight-tracker
+# newer .NET versions listen on port 8080 by default. 
+# You can override this with ASPNETCORE_URLS if needed.
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment=ASPNETCORE_URLS=http://localhost:5000
+ExecStart=/usr/bin/dotnet /opt/weight-tracker/WeightTrackerAPI.dll
+Restart=always
+# Restart service after 10 seconds if the dotnet service crashes:
+RestartSec=10
+KillSignal=SIGINT
+SyslogIdentifier=weight-tracker
+User=root
+# Ideally create a dedicated user (e.g., 'web') and chown the /opt/weight-tracker directory
+# User=webapp
+
+[Install]
+WantedBy=multi-user.target
