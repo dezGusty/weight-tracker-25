@@ -1,0 +1,23 @@
+<div class="app-container">
+  <header>
+    <h1>{{ title }}</h1>
+  </header>
+  
+  <main>
+    <div class="content-wrapper">
+      <app-weight-form 
+        [editingWeight]="editingWeight"
+        (saved)="onWeightSaved()"
+        (cancelled)="onCancelEdit()">
+      </app-weight-form>
+      
+      <app-weight-chart></app-weight-chart>
+      
+      <app-weight-list
+        (edit)="onEditWeight($event)">
+      </app-weight-list>
+    </div>
+  </main>
+  
+  <router-outlet />
+</div>

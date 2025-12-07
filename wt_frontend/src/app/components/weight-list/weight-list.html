@@ -1,0 +1,24 @@
+<div class="weight-list-container">
+  <h2>Weight History</h2>
+  
+  <div *ngIf="loading" class="loading">Loading...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+  
+  <div *ngIf="!loading && weights.length === 0" class="no-data">
+    No weight entries yet. Add your first entry above!
+  </div>
+  
+  <div *ngIf="!loading && weights.length > 0" class="weight-list">
+    <div *ngFor="let weight of weights" class="weight-item">
+      <div class="weight-info">
+        <span class="date">{{ formatDate(weight.date) }}</span>
+        <span class="weight">{{ weight.weight }} kg</span>
+        <span class="notes" *ngIf="weight.notes">{{ weight.notes }}</span>
+      </div>
+      <div class="actions">
+        <button (click)="editWeight(weight)" class="btn-edit">Edit</button>
+        <button (click)="deleteWeight(weight.id!)" class="btn-delete">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
