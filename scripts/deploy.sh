@@ -35,8 +35,13 @@ cp -r $FRONTEND_DIR/dist/frontend/browser/* $BACKEND_DIR/wwwroot/
 
 # 5. Publish Backend
 echo "Publishing Backend..."
-# Stop service before overwriting files
-sudo systemctl stop $SERVICE_NAME || true
+# Stop service before overwriting files (only if service exists)
+if systemctl list-unit-files | grep -q "^${SERVICE_NAME}.service"; then
+	sudo systemctl stop $SERVICE_NAME || true
+else
+	echo "Service $SERVICE_NAME does not exist. Continuing with deployment..."
+fi
+
 
 sudo mkdir -p $APP_DIR
 sudo dotnet publish $BACKEND_DIR/WeightTrackerAPI.csproj -c Release -o $APP_DIR
@@ -49,8 +54,28 @@ if [ ! -f "$APP_DIR/weighttracker.db" ]; then
     chmod 666 $APP_DIR/weighttracker.db
     sqlite3 $APP_DIR/weighttracker.db "VACUUM;"
 fi
-
+	
 # 6. Restart Service
 echo "Restarting Service..."
-sudo systemctl start $SERVICE_NAME
-sudo systemctl status $SERVICE_NAME --no-pager
+if systemctl list-unit-files | grep -q "^${SERVICE_NAME}.service"; then
+	sudo systemctl start $SERVICE_NAME
+	sudo systemctl status $SERVICE_NAME --no-pager
+else
+	echo "Service $SERVICE_NAME does not exist. Attempting to configure and start the service..."
+	# Create a basic service file, based on the contents of the file `weight-tracker.service` in the repo's `scripts` directory.
+	SOURCE_CONFIG_FILE="$SCRIPT_DIR/weight-tracker.service"
+	SERVICE_FILE="/etc/systemd/system/${SERVICE_NAME}.service"
+	
+	if [ -f "$SOURCE_CONFIG_FILE" ]; then
+		echo "Installing service file from $SOURCE_CONFIG_FILE..."
+		sudo cp "$SOURCE_CONFIG_FILE" "$SERVICE_FILE"
+		sudo chmod 644 "$SERVICE_FILE"
+		sudo systemctl daemon-reload
+		sudo systemctl enable weight-tracker
+		sudo systemctl start weight-tracker
+	else
+		echo "Error: Service configuration file not found at $SOURCE_CONFIG_FILE"
+		exit 1
+	fi
+
+fi

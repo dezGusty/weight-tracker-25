@@ -42,3 +42,20 @@ What would be a proper option to specify this from something like a config file 
 
 I might want to add other endpoints and services to the application beyond the "weights". Please change the apiUrl configuration specified in the Angular config.json to only refer to the backend server api common namespace (either http://localhost:5057/api or http://localhost:5057).
 Any services using the setting, such as the WeightService need to add their own paths to the endpoint (E.g. "weights" )
+
+## Input 07
+
+(context: deploy.sh)
+In the section for the 6th step (Restart Service), add the operation for creating the service configuration file by copying the content from the source config file, specified in the repository's scripts directory. Also adjust the necessary permissions
+
+## Input 07.1
+
+I want the config to be different between the standard development environment and the production environment.
+The only difference for now is the setting "apiUrl", which should remain "http://localhost:15057/api" for the development build, but should be (also configurable in a file) "http://localhost:5000/api" for the production build.
+Given this requirement, does it still make sense to load the setting for apiUrl from wt_frontend/public/config.json, or is there another standard approach to specivy the environments which should be used ?
+
+## Input 07.2
+
+I did not accept the changes you suggested in deploy.sh I don't think that will work. Please reanalyze.
+My reasoning: The angular compilation shall create a js bundle to be served from the wwwroot directory. But that does not have access to the node.js like import and access the file system, that type of include is available at run-time, but beyond that, the files in wwwroot are designed to be served by a web server.
+I expect that the port number shall have to be specified pre-compilation bu using settings in wt_frontend/src/environments/ and for one of these files to be selected based on the flags passed to ng build.
